@@ -30,16 +30,13 @@ const Home = () => {
     const body = { text: formData.text };
 
     try {
-      const response = await fetch(
-        api + "v1/api/translate/tunisian-dialect",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      );
+      const response = await fetch(api + "/v1/api/translate/tunisian-dialect", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
       if (response.ok) {
         const data = await response.json();

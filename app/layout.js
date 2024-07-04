@@ -12,8 +12,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: pageTitle,
-  description: "Personal Portfolio",
+  title: "Tunisian AI translator",
+  description: "Tanslate dialect language to Tunisian Arabic 🇹🇳",
 };
 
 export default function RootLayout({ children }) {
