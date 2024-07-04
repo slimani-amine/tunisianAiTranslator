@@ -31,7 +31,7 @@ const Home = () => {
 
     try {
       const response = await fetch(
-        api + "https://6c97-196-203-25-82.ngrok-free.app",
+        api + "v1/api/translate/tunisian-dialect",
         {
           method: "POST",
           headers: {
