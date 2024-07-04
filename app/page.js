@@ -1,59 +1,76 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { FiDownload } from "react-icons/fi";
-import { homeInformation } from "@/portfolio";
 
-// Components
-import Social from "@/components/Social";
-import Photo from "@/components/Photo";
-import Stats from "@/components/Stats";
+import { homeInformation } from "@/portfolio";
+import { Button } from "@/components/ui/button";
+
+import { Textarea } from "@/components/ui/textarea";
+import useTypewriter from "@/lib/useTypewriter";
+import { useEffect, useState } from "react";
+const api = process.env.NEXT_PUBLIC_TRANSLATE_API;
 
 const Home = () => {
   const handleDownloadCV = () => {
     window.open(homeInformation.cvLink, "_blank");
   };
 
+  const typewriterText = useTypewriter(
+    "Translate dialect language to Tunisian Arabic 🇹🇳",
+    50
+  );
+
+  const [formData, setFormData] = useState({ text: "" });
+  const [result, setResult] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const body = { text: formData.text };
+
+    try {
+      const response = await fetch(api, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("🚀 ~ handleSubmit ~ data:", data);
+        setResult(data.translatedText);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section className="h-full">
-      <div className="container mx-auto h-full">
-        <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
-          {/* text */}
-          <div className="text-center xl:text-left order-2 xl:order-none ">
-            <span className="text-xl">{homeInformation.jobTitle}</span>
-            <h1 className="h1">
-              Hello I&apos;m <br />
-              <span className="text-accent">{homeInformation.name}</span>
-            </h1>
-            <p className="max-w-[600px] mb-9 text-white/80">
-              {homeInformation.description}
-            </p>
-            <div className="flex flex-col xl:flex-row items-center gap-8">
-              <Button
-                variant="outline"
-                size="lg"
-                className="uppercase flex items-center gap-2"
-                onClick={handleDownloadCV}
-              >
-                <span>Download CV </span>
-                <FiDownload className="text-xl" />
-              </Button>
-              <div className="mb-8 xl:mb-0">
-                <Social
-                  containerStyle={"flex gap-6 "}
-                  iconStyles={
-                    "w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
-                  }
-                />
-              </div>
-            </div>
-          </div>
-          {/* Photo */}
-          <div className="order-1 xl:order-none mb-8 xl:mb-0">
-            <Photo />
-          </div>
+      <form
+        className="container mx-auto h-full  w-full flex flex-col "
+        onSubmit={handleSubmit}
+        method="post"
+      >
+        <h1 className="h3 text-black">{typewriterText}</h1>
+
+        <div className="flex w-full xl:w-2/3 flex-col xl:flex-row gap-4 items-center justify-center pt-8 pb-12 xl:pt-8 xl:pb-12">
+          <Textarea
+            className="h-[100px] w-full"
+            placeholder="Type your message here (max 3 words)"
+            name="text"
+            value={formData.text}
+            onChange={handleChange}
+          />
         </div>
-      </div>
-      <Stats />
+        <Button size="lg" className="w-full xl:w-2/3" type="submit">
+          Submit
+        </Button>
+        <h1 className="h3 text-black mt-20 self-center">{result}</h1>
+      </form>
     </section>
   );
 };

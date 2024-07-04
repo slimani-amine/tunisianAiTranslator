@@ -3,10 +3,7 @@ import "./globals.css";
 
 // components
 import Header from "@/components/Header";
-import PageTransition from "@/components/PageTransition";
-import StairTransition from "@/components/StairTransition";
-import { lastUpdate, pageTitle } from "@/portfolio";
-import { Toaster } from "react-hot-toast";
+import { pageTitle } from "@/portfolio";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -28,14 +25,8 @@ export default function RootLayout({ children }) {
       </head>
       <body className={jetbrainsMono.variable}>
         <Header />
-        <StairTransition />
-        <PageTransition>
-          {children}
-          <div className=" h-full text-end mx-8 xl:mt-24">
-            Last update : {lastUpdate}
-          </div>
-        </PageTransition>
-        <Toaster position="bottom-right" />
+
+        {children}
       </body>
     </html>
   );

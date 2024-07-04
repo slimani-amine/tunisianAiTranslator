@@ -1,23 +1,26 @@
 import Link from "next/link";
 
 // components
-import Nav from "./Nav";
-import { Button } from "./ui/button";
-import MobileNav from "./MobileNav";
+import Image from "next/image";
 
 const Header = () => {
   return (
     <header className="py-8 xl:py-12 text-white">
       <div className="container mx-auto flex justify-between items-center ">
         {/* logo */}
-        <Link href={"/"}>
-          <h1 className="text-4xl font-semibold">
-            Amine<span className="text-accent ">.</span>
-          </h1>
+        <Link href={"/"} className="flex gap-3 items-center justify-center">
+          <Image src="/softylinesLogo.webp" width={50} height={50} alt="" />
+          <Image
+            src="/logo.webp"
+            width={200}
+            height={200}
+            alt=""
+            className="translate-y-2"
+          />
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden xl:flex items-center gap-8">
+        {/* <div className="hidden xl:flex items-center gap-8">
           <Nav />
           <Link href={"/contact"}>
             <Button>Hire me</Button>
@@ -25,9 +28,9 @@ const Header = () => {
         </div>
 
         {/* Mobile Nav */}
-        <div className="xl:hidden">
+        {/* <div className="xl:hidden">
           <MobileNav />
-        </div>
+        </div>  */}
       </div>
     </header>
   );
