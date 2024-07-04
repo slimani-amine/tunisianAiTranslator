@@ -30,13 +30,16 @@ const Home = () => {
     const body = { text: formData.text };
 
     try {
-      const response = await fetch(api, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        api + "https://6c97-196-203-25-82.ngrok-free.app",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -69,7 +72,9 @@ const Home = () => {
         <Button size="lg" className="w-full xl:w-2/3" type="submit">
           Submit
         </Button>
-        <h1 className="h3 text-black mt-20 self-center">{result}</h1>
+        <h1 className="h3 text-black w-full xl:w-2/3 mt-20  self-center">
+          {result}
+        </h1>
       </form>
     </section>
   );
