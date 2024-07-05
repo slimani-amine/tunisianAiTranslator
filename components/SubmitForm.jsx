@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
@@ -29,19 +27,22 @@ function SubmitForm() {
 
   const [formData, setFormData] = useState({ text: "" });
   const [result, setResult] = useState("");
-  const [correctText, setcorrectText] = useState("");
+  const [correctText, setCorrectText] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleResultChange = (e) => {
-    setcorrectText(e.target.value);
+    setCorrectText(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); 
+
     const body = { text: formData.text };
     try {
       const response = await fetch(api + "/v1/api/translate/tunisian-dialect", {
@@ -62,7 +63,8 @@ function SubmitForm() {
         description: "Something went wrong! Please try again",
       });
       console.log(error);
-      e.preventDefault();
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -111,7 +113,6 @@ function SubmitForm() {
         description: "Something went wrong! Please try again",
       });
       console.log(error);
-      event.preventDefault();
     }
   };
 
@@ -135,15 +136,15 @@ function SubmitForm() {
 
   return (
     <form
-      className="container mx-auto h-full w-full flex flex-col gap-8 mt-10  items-center justify-start text-start "
+      className="container mx-auto h-full w-full flex flex-col gap-8 mt-10 items-center justify-start text-start"
       onSubmit={handleSubmit}
       method="post"
     >
-      <h1 className="h3 text-black ">{typewriterText}</h1>
+      <h1 className="h3 text-black">{typewriterText}</h1>
 
-      <div className="flex w-full xl:w-2/3 flex-col xl:flex-row items-center justify-center ">
+      <div className="flex w-full xl:w-2/3 flex-col xl:flex-row items-center justify-center">
         <Textarea
-          className="h-[100px] w-full "
+          className="h-[100px] w-full"
           placeholder="Type your message here (max 3 words)"
           name="text"
           value={formData.text}
@@ -151,7 +152,7 @@ function SubmitForm() {
         />
       </div>
       <Button size="lg" className="w-full xl:w-2/3" type="submit">
-        Submit
+        {loading ? "Loading..." : "Submit"}
       </Button>
 
       {result.length > 0 && (
@@ -165,7 +166,7 @@ function SubmitForm() {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle className="text-black ">
+                  <AlertDialogTitle className="text-black">
                     Correct Translation
                   </AlertDialogTitle>
                   <AlertDialogDescription className="text-black">
