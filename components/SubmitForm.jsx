@@ -161,7 +161,7 @@ function SubmitForm() {
           <div className="flex w-full xl:w-2/3 gap-2">
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button className="w-1/3 h-[60px]">Correct</Button>
+                <Button className="w-1/3 h-[55px]">Correct</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
@@ -198,11 +198,11 @@ function SubmitForm() {
             </AlertDialog>
             <Input
               type="text"
-              className="h-[60px] w-2/3 text-right"
+              className="h-[55px] w-2/3 text-right"
               disabled
               value={result}
             />
-            <Button className="h-[60px] bg-gray-500" onClick={handleCopy}>
+            <Button className="h-[55px] bg-gray-500" onClick={handleCopy}>
               <Copy />
             </Button>
           </div>
