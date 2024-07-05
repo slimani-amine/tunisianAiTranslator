@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
