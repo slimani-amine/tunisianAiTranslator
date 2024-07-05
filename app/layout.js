@@ -36,6 +36,7 @@ export default function RootLayout({ children }) {
           width={300}
           height={300}
           className="rounded-xl m-8 flex absolute bottom-0 shadow-xl"
+          alt="made in tunisia"
         />
       </body>
     </html>
