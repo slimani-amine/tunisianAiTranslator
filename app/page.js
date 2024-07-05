@@ -34,7 +34,6 @@ const Home = () => {
 
   const [formData, setFormData] = useState({ text: "" });
   const [result, setResult] = useState("");
-  const [onSubmit, setOnSubmit] = useState(false);
   const [correctText, setcorrectText] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -59,7 +58,6 @@ const Home = () => {
       });
 
       if (response.ok) {
-        setOnSubmit(!onSubmit);
         const data = await response.json();
         setResult(data.translatedText);
       }
@@ -161,56 +159,60 @@ const Home = () => {
         <Button size="lg" className="w-full xl:w-2/3" type="submit">
           Submit
         </Button>
-        {onSubmit && <h1 className="h3 text-black">Your translation:</h1>}
+
         {result.length > 0 && (
-          <div className="flex w-full xl:w-2/3 gap-2">
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button className="w-1/3 h-[60px]">Correct</Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle className="text-black ">
-                    Correct Translation
-                  </AlertDialogTitle>
-                  <AlertDialogDescription className="text-black">
-                    Modify the translated text and submit your correction.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <div className="flex flex-col gap-4 p-4">
-                  <Input label="Input Text" value={formData.text} disabled />
-                  <Input label="Translated Text" value={result} disabled />
-                  <Textarea
-                    label="Corrected Text"
-                    value={correctText}
-                    name="correctText"
-                    placeholder="Type your corrected message here"
-                    onChange={handleResultChange}
-                  />
-                  {errorMessage && (
-                    <p className="text-red-500">{errorMessage}</p>
-                  )}
-                </div>
-                <AlertDialogFooter>
-                  <AlertDialogCancel className="text-black">
-                    Cancel
-                  </AlertDialogCancel>
-                  <AlertDialogAction onClick={handleCorrect}>
-                    Submit Correction
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <Input
-              type="text"
-              className="h-[60px] w-2/3 text-right"
-              disabled
-              value={result}
-            />
-            <Button className="h-[60px] bg-gray-500" onClick={handleCopy}>
-              <Copy />
-            </Button>
-          </div>
+          <>
+            <h1 className="h3 text-black">Your translation:</h1>
+
+            <div className="flex w-full xl:w-2/3 gap-2">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button className="w-1/3 h-[60px]">Correct</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-black ">
+                      Correct Translation
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-black">
+                      Modify the translated text and submit your correction.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <div className="flex flex-col gap-4 p-4">
+                    <Input label="Input Text" value={formData.text} disabled />
+                    <Input label="Translated Text" value={result} disabled />
+                    <Textarea
+                      label="Corrected Text"
+                      value={correctText}
+                      name="correctText"
+                      placeholder="Type your corrected message here"
+                      onChange={handleResultChange}
+                    />
+                    {errorMessage && (
+                      <p className="text-red-500">{errorMessage}</p>
+                    )}
+                  </div>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="text-black">
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction onClick={handleCorrect}>
+                      Submit Correction
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+              <Input
+                type="text"
+                className="h-[60px] w-2/3 text-right"
+                disabled
+                value={result}
+              />
+              <Button className="h-[60px] bg-gray-500" onClick={handleCopy}>
+                <Copy />
+              </Button>
+            </div>
+          </>
         )}
       </form>
     </section>
