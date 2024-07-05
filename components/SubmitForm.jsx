@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
@@ -30,7 +30,7 @@ function SubmitForm() {
   const [result, setResult] = useState("");
   const [correctText, setCorrectText] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -42,7 +42,7 @@ function SubmitForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); 
+    setLoading(true);
 
     const body = { text: formData.text };
     try {
@@ -65,7 +65,7 @@ function SubmitForm() {
       });
       console.log(error);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -198,15 +198,15 @@ function SubmitForm() {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
+            <Button className="h-[55px] bg-[#9975D0]" onClick={handleCopy}>
+              <Copy />
+            </Button>
             <Input
               type="text"
               className="h-[55px] w-2/3 text-right"
               disabled
               value={result}
             />
-            <Button className="h-[55px] bg-gray-500" onClick={handleCopy}>
-              <Copy />
-            </Button>
           </div>
         </>
       )}
