@@ -61,10 +61,13 @@ const Home = () => {
       if (response.ok) {
         setOnSubmit(!onSubmit);
         const data = await response.json();
-        console.log("🚀 ~ handleSubmit ~ data:", data);
         setResult(data.translatedText);
       }
     } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong! Please try again",
+      });
       console.log(error);
       e.preventDefault();
     }
@@ -110,6 +113,10 @@ const Home = () => {
         });
       }
     } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong! Please try again",
+      });
       console.log(error);
       event.preventDefault();
     }
@@ -124,7 +131,11 @@ const Home = () => {
         });
       },
       (err) => {
-        console.log("Failed to copy text: ", err);
+        toast({
+          title: "Error",
+          description:
+            "Something went wrong! Failed to copy text Please try again",
+        });
       }
     );
   };
